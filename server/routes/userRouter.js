@@ -2,16 +2,16 @@ const express = require('express');
 const userController = require('../controllers/userController');
 const router = express.Router();
 
-router.get('/user/:name', userController.getUser, (req, res) => {
-  res.status(200).send('Received GET request to /user:name');
+router.get('/user/:id', userController.getUser, (req, res) => {
+  res.status(200).send(res.locals.user);
 })
 
-// router.get('/users', userController.getUsers, (req, res) => {
-//   res.status(200).send('Received GET request to /users');
-// })
+router.get('/users', userController.getUsers, (req, res) => {
+  res.status(200).send(res.locals.users);
+})
 
-// router.post('/user/create', userController.createUser, (req, res) => {
-//   res.status(200).send('Received POST request to /user');
-// })
+router.post('/user/create', userController.createUser, (req, res) => {
+  res.status(200).send(res.locals.userinfo);
+})
 
-module.exports = router;
+module.exports = router;[0]
