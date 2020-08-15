@@ -1,8 +1,16 @@
+var fs = require('fs')
+var https = require('https')
+
 const express = require('express');
 const app = express();
 const PORT = 3000;
 
 const path = require('path');
+
+var certOptions = {
+  key: fs.readFileSync(path.resolve(__dirname, '../server.key')),
+  cert: fs.readFileSync(path.resolve(__dirname, '../server.crt'))
+}
 
 // require routers:
 const testRouter = require('./routes/testrouter');
@@ -39,8 +47,10 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Listening on port: ${PORT}`);
+// });
+
+https.createServer(certOptions, app).listen(PORT, () => { console.log(`Listening on port ${PORT}...`); })
 
 module.exports = app;
