@@ -4,14 +4,14 @@ import NavContainer from './containers/NavContainer';
 import MainContainer from './containers/MainContainer';
 
 const App = () => {
-  // const [user, setUser] = useState('Rob');
+  const [username, setUsername] = useState('');
 
   return (
     <div id='app'>
-      <LoginContainer />
+      <LoginContainer setUsername={setUsername} />
+
       <NavContainer />
       <MainContainer />
-      <button></button>
     </div>
   );
 };
