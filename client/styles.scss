@@ -2,6 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Oleo Script', Helvetica, sans-serif;
+  font-size: 105%;
+  color: white;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -12,7 +16,6 @@ body {
     rgba(121, 9, 9, 1) 35%,
     rgba(0, 69, 255, 1) 100%
   );
-  color: white;
 }
 
 #login-container {

@@ -12,18 +12,17 @@ const LoginContainer = (props) => {
         onSubmit={(e) => {
           e.preventDefault();
           props.setUsername(name);
-          console.log(name);
         }}
       >
         <div>
           <label>User:</label>
-          <input type='text' onChange={(e) => setName(name + e.target.value)} />
+          <input type='text' onChange={(e) => setName(e.target.value)} />
         </div>
         <div>
           <label>Password:</label>
           <input
             type='password'
-            onChange={(e) => setPassword(password + e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <br></br>
