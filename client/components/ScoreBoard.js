@@ -99,7 +99,16 @@ const ScoreBoard = (props) => {
       />
     );
   });
-  return <div id='score-board'>{playerlist}</div>;
+
+  return (
+    <div id='score-board'>
+      <div id='scoreboard-title'>
+        <h1>Scoreboard</h1>
+      </div>
+      {playerlist}
+    </div>
+  )
+
 };
 
 export default ScoreBoard;
