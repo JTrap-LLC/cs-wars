@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production nodemon server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development webpack-dev-server  --open --hot & nodemon server/server.js",
+    "dev": "concurrently \"NODE_ENV=development\" \"webpack-dev-server --open --hot\" \"nodemon server/server.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -28,6 +28,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "concurrently": "^5.3.0",
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
