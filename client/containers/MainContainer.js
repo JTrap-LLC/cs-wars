@@ -5,7 +5,7 @@ import ScoreBoard from '../components/ScoreBoard.js';
 const MainContainer = (props) => {
   return (
     <div id='main-container'>
-      <UserInfo />
+      <UserInfo codeWarsData={props.codeWarsData} />
       <ScoreBoard />
     </div>
   );
