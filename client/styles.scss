@@ -5,5 +5,42 @@
 }
 
 body {
-  background: green;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(121, 9, 9, 1) 35%,
+    rgba(0, 69, 255, 1) 100%
+  );
+  color: white;
+}
+
+#login-container {
+  background-color: black;
+  width: 40vw;
+  height: 40vh;
+}
+
+#nav {
+  width: 100vw;
+  height: 10vh;
+  background-color: red;
+}
+
+#main-container {
+  display: flex;
+
+  justify-content: space-between;
+}
+
+#user-info {
+  background-color: black;
+  width: 40vw;
+  height: 40vh;
+}
+
+#score-board {
+  background-color: grey;
+  width: 30vw;
+  height: 80vh;
 }
