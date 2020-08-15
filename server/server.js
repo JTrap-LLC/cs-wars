@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 
 const PORT = 3001;
 const path = require('path');
@@ -8,8 +7,8 @@ const path = require('path');
 const userRouter = require('./routes/userRouter');
 
 // handle parsing request body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // When starting from "production"
 if (process.env.NODE_ENV === 'production') {
@@ -17,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/', (req, res) => {
     res.status(201).sendFile(path.join(__dirname, '../dist/index.html')); // send the index.html to browser
   });
-};
+}
 
 // ROUTERS
 app.use('/', userRouter);
@@ -31,7 +30,7 @@ app.use((req, res) => {
 app.use((err, req, res, next) => {
   const defaultErr = {
     log: 'Express error handler caught unkown middleware error!',
-    status: 501,
+    status: 500,
     message: { err: 'An error occurred!' },
   };
   const errorObj = Object.assign(defaultErr, err);
