@@ -13,6 +13,7 @@ module.exports = {
   devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
   devServer: {
+    https:true,
     host: 'localhost',
     port: 8080,
     contentBase: path.resolve(__dirname, 'dist'),
