@@ -8,13 +8,15 @@ const App = () => {
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
-    const userName = 'sull364';
-    var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-      targetUrl = `https://www.codewars.com/api/v1/users/${userName}`;
-    fetch(proxyUrl + targetUrl)
+    // const userName = 'sull364'; // needs to come from server; user logs in and username is served to front end
+    // var proxyUrl = 'https://cors-anywhere.herokuapp.com/', // this needs to move to the back end
+    //   targetUrl = `https://www.codewars.com/api/v1/users/${userName}`; //move to back end
+
+    fetch(`/user/alonsog66`) // need to get from login
       .then((resp) => resp.json())
       .then((resp) => {
         setUserInfo([resp]);
+        console.log('THIS IS THE RESULT: ', resp);
       })
       .catch((e) => {
         return e;
@@ -29,8 +31,8 @@ const App = () => {
         <div></div>
       ) : (
         <div>
-          <NavContainer username={userInfo[0].username} />
-          <MainContainer codeWarsData={JSON.stringify(userInfo[0])} />
+          {/* <NavContainer username={userInfo[0].username} />
+          <MainContainer codeWarsData={JSON.stringify(userInfo[0])} /> */}
         </div>
       )}
     </div>
