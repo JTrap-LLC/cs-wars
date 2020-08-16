@@ -2,7 +2,7 @@ import React from 'react';
 
 const UserInfo = (props) => {
   const data = JSON.parse(props.codeWarsData);
-  console.log(data);
+  // console.log(data);
   return (
     <div id='user-info'>
       <ul>

@@ -1,95 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Player from './Player';
 
 const ScoreBoard = (props) => {
-  const users = [
-    {
-      username: 'Alonsog66',
-      name: null,
-      honor: 174,
-      clan: null,
-      leaderboardPosition: 158741,
-      skills: null,
-      ranks: {
-        overall: {
-          rank: -6,
-          name: '6 kyu',
-          color: 'yellow',
-          score: 142,
-        },
-        languages: {
-          javascript: {
-            rank: -6,
-            name: '6 kyu',
-            color: 'yellow',
-            score: 142,
-          },
-        },
-      },
-      codeChallenges: {
-        totalAuthored: 0,
-        totalCompleted: 24,
-      },
-    },
-    {
-      username: 'Rnobile135',
-      name: null,
-      honor: 60,
-      clan: null,
-      leaderboardPosition: null,
-      skills: null,
-      ranks: {
-        overall: {
-          rank: -7,
-          name: '7 kyu',
-          color: 'white',
-          score: 48,
-        },
-        languages: {
-          javascript: {
-            rank: -7,
-            name: '7 kyu',
-            color: 'white',
-            score: 48,
-          },
-        },
-      },
-      codeChallenges: {
-        totalAuthored: 0,
-        totalCompleted: 18,
-      },
-    },
-    {
-      username: 'justinjaeger',
-      name: null,
-      honor: 72,
-      clan: null,
-      leaderboardPosition: null,
-      skills: null,
-      ranks: {
-        overall: {
-          rank: -7,
-          name: '7 kyu',
-          color: 'white',
-          score: 57,
-        },
-        languages: {
-          javascript: {
-            rank: -7,
-            name: '7 kyu',
-            color: 'white',
-            score: 57,
-          },
-        },
-      },
-      codeChallenges: {
-        totalAuthored: 0,
-        totalCompleted: 11,
-      },
-    },
-  ];
+  const [userInfo, setUserInfo] = useState([]);
 
-  const playerlist = users.map((player, index) => {
+  const users = ['sull364', 'Alonsog66', 'Rnobile135', 'justinjaeger'];
+
+  useEffect(() => {
+    Promise.all(
+      users.map(async (user) => {
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
+          targetUrl = `https://www.codewars.com/api/v1/users/${user}`;
+        const respJSON = await fetch(proxyUrl + targetUrl);
+        const resp = await respJSON.json();
+        return resp;
+      })
+    ).then((resp) => {
+      console.log(resp);
+      setUserInfo(resp);
+    });
+  }, []);
+  const playerlist = userInfo.map((player, index) => {
     return (
       <Player
         key={`player${index}`}
@@ -99,7 +30,16 @@ const ScoreBoard = (props) => {
       />
     );
   });
-  return <div id='score-board'>{playerlist}</div>;
+
+  return (
+    <div id='score-board'>
+      <div id='scoreboard-title'>
+        <h1>Scoreboard</h1>
+      </div>
+
+      {!userInfo.length ? <div></div> : playerlist}
+    </div>
+  );
 };
 
 export default ScoreBoard;
