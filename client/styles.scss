@@ -6,7 +6,7 @@
 
 body {
   background: #222222;
-  
+
   font-family: Verdana, Geneva, sans-serif;
   font-size: 105%;
   color: white;
@@ -21,7 +21,7 @@ body {
   justify-content: center;
   border: 5px solid black;
   border-radius: 14px;
-  box-shadow: 3px 5px 15px 0px rgba(0,0,0,0.72);
+  box-shadow: 3px 5px 15px 0px rgba(0, 0, 0, 0.72);
 }
 
 ul {
@@ -35,6 +35,9 @@ ul {
 }
 
 #nav {
+  padding: 3vh;
+  display: flex;
+  justify-content: flex-end;
   width: 100%;
   height: 10vh;
   background-color: #003366;
