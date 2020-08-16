@@ -6,11 +6,14 @@
 
 body {
   background: #222222;
-
   font-family: Verdana, Geneva, sans-serif;
   font-size: 105%;
   color: white;
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style: none;
 }
 
 #App {
@@ -22,10 +25,6 @@ body {
   border: 5px solid black;
   border-radius: 14px;
   box-shadow: 3px 5px 15px 0px rgba(0, 0, 0, 0.72);
-}
-
-ul {
-  list-style: none;
 }
 
 #login-container {
@@ -57,7 +56,7 @@ ul {
   padding: 10px;
 }
 
-#score-board {
+#scoreboard {
   background-color: rgb(110, 109, 109);
   width: 30%;
   height: 40vh;
@@ -69,7 +68,7 @@ ul {
   text-align: center;
 }
 
-.player {
+#player {
   padding: 3px;
   border: 1px solid black;
   padding: 10px;
