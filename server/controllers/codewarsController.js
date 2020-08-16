@@ -11,17 +11,15 @@ const codewarsController = {};
 // returns the codewars all data based on CW-Username
 codewarsController.getUser = async (req, res, next) => {
   const { id } = req.params;
-
   try {
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // this needs to move to the back end
+    // const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // this needs to move to the back end
     const targetUrl = `https://www.codewars.com/api/v1/users/${id}`; //move to back end
-
-    fetch(proxyUrl + targetUrl) // need to get from login
+    fetch(targetUrl) // need to get from login
       //fetch('https://image-server-codesmith.firebaseapp.com/images')
-      .then((resp) => resp.text())
+      .then((resp) => resp.json())
       .then((resp) => {
         console.log('THIS IS THE RESULT from API: ', resp);
-        // res.locals.user = resp;
+        res.locals.user = resp;
         next();
       });
   } catch (err) {

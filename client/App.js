@@ -12,7 +12,7 @@ const App = () => {
     // var proxyUrl = 'https://cors-anywhere.herokuapp.com/', // this needs to move to the back end
     //   targetUrl = `https://www.codewars.com/api/v1/users/${userName}`; //move to back end
 
-    fetch(`/user/alonsog66`) // need to get from login
+    fetch(`/user/sull364`) // need to get from login
       .then((resp) => resp.json())
       .then((resp) => {
         setUserInfo([resp]);

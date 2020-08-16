@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.get(
   '/user/:id',
-  codewarsController.getUser,
-  // userController.updateUser,
+  codewarsController.getUser, // returns codewars user data
+  userController.updateUser, // update sql db with codewars user data
   (req, res) => {
-    res.status(200).send('res.locals.userSQL');
+    res.status(200).send(res.locals.userSQL);
   }
 );
 
