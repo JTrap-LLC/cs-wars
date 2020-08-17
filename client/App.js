@@ -6,6 +6,7 @@ import MainContainer from './containers/MainContainer';
 const App = () => {
   const [user, setUsername] = useState(''); // Codewars Username
   const [userInfo, setUserInfo] = useState([]); // User info from DB
+  const [userChallenges, setUserChallenges] = useState([]); 
   const [isLoggedin, setLogin] = useState(false);
 
   useEffect(() => {
@@ -14,6 +15,18 @@ const App = () => {
       .then((resp) => {
         setUserInfo([resp]);
         setLogin(!isLoggedin);
+      })
+      .catch((e) => {
+        return e;
+      });
+  }, [user]);
+  
+  useEffect(() => {
+    fetch(`/challenges/${user}`) // need to get from login
+      .then((resp) => resp.json())
+      .then((resp) => {
+        setUserChallenges(resp);
+        console.log('challenges', resp)
       })
       .catch((e) => {
         return e;
@@ -41,6 +54,7 @@ const App = () => {
                 codeWarsData={JSON.stringify(
                   userInfo[0]
                 )} /* Passes user info from DB */
+                userChallenges={userChallenges}
               />
             </div>
           )}

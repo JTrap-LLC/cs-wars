@@ -9,6 +9,7 @@ const MainContainer = (props) => {
         codeWarsData={
           props.codeWarsData
         } /* Passes user info from DB (from state in App) */
+        userChallenges={props.userChallenges}
       />
       <ScoreBoard />
     </div>

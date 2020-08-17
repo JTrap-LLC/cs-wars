@@ -13,6 +13,14 @@ router.get(
 );
 
 router.get(
+  '/challenges/:id',
+  codewarsController.getChallenges,
+  (req, res) => {
+    res.status(200).send(res.locals.challenges);
+  }
+);
+
+router.get(
   '/users',
   userController.getUsers, // returns array of cw-username from db
   // codewarsController.getUsers, // get codewars data from api

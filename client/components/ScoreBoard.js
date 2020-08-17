@@ -27,12 +27,13 @@ const ScoreBoard = (props) => {
   });
 
   return (
-    <div id='score-board'>
+    <div id='scoreboard'>
       <div id='scoreboard-title'>
         <h1>Scoreboard</h1>
       </div>
-
-      {!userInfo.length ? <div></div> : <div>{playerlist}</div>}
+      <div id='scoreboard-body'>
+        {!userInfo.length ? <div></div> : <div>{playerlist}</div>}
+      </div>
     </div>
   );
 };
