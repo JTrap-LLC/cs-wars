@@ -1,15 +1,15 @@
 import React from 'react';
 
 const UserInfo = (props) => {
-  const data = JSON.parse(props.codeWarsData);
-  // console.log(data);
+  const data = JSON.parse(props.codeWarsData); // All the user info (passed from App)
+  console.log('DATA IN USERINFO', data);
   return (
     <div id='user-info'>
       <ul>
-        <li> Username: {data.username}</li>
-        <li> Completed Challanges: {data.codeChallenges.totalCompleted}</li>
-        <li> Favorite Language: {Object.keys(data.ranks.languages)[0]}</li>
-        <li> Codewars Rank: {data.ranks.overall.name}</li>
+        <li> Username: {data.cwusername}</li>
+        <li> Completed Challanges: {data.completed}</li>
+        <li> Favorite Language: {'Javascript'}</li>
+        <li> Codewars Rank: {data.rank}</li>
       </ul>
     </div>
   );

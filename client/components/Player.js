@@ -2,7 +2,7 @@ import React from 'react';
 
 const Player = (props) => {
   return (
-    <div className='player'>
+    <div id='player'>
       <div>
         <span>Username: </span>
         {props.username}
