@@ -12,23 +12,24 @@ router.get(
   }
 );
 
-// router.get(
-//   '/users',
-//   userController.getUsers,
-//   codewarsController.getUsers,
-//   userController.updateUsers,
-//   (req, res) => {
-//     res.status(200).send(res.locals.users);
-//   }
-// );
+router.get(
+  '/users',
+  userController.getUsers, // returns array of cw-username from db
+  codewarsController.getUsers, // get codewars data from api
+  userController.updateUsers, // update db with codewars data
+  (req, res) => {
+    res.status(200).send(res.locals.SQLusers);
+  }
+);
 
-// router.post(
-//   '/user/create',
-//   codewarsController.getUser,
-//   userController.createUser,
-//   (req, res) => {
-//     res.status(200).send(res.locals.userinfo);
-//   }
-// );
+router.post(
+  '/user/create',
+  // userController.userDoesntExist,
+  codewarsController.createUser,
+  userController.createUser,
+  (req, res) => {
+    res.status(200).send(res.locals.userinfo);
+  }
+);
 
 module.exports = router;
