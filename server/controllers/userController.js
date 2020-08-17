@@ -8,7 +8,6 @@ const userController = {};
 
 //======= GET USER ========//
 userController.updateUser = async (req, res, next) => {
-  console.log('rlu', res.locals.user);
   const cwUsername = res.locals.user.username;
   const rank = res.locals.user.ranks.overall.name;
   const completed = res.locals.user.codeChallenges.totalCompleted;
