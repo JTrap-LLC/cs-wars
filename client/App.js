@@ -4,20 +4,21 @@ import NavContainer from './containers/NavContainer';
 import MainContainer from './containers/MainContainer';
 
 const App = () => {
-  const [user, setUsername] = useState('Alonsog66'); // Codewars Username
+  const [user, setUsername] = useState(''); // Codewars Username
   const [userInfo, setUserInfo] = useState([]); // User info from DB
-  const [isLoggedin, setLogin] = useState(true);
+  const [isLoggedin, setLogin] = useState(false);
 
   useEffect(() => {
     fetch(`/user/${user}`) // need to get from login
       .then((resp) => resp.json())
       .then((resp) => {
         setUserInfo([resp]);
+        setLogin(!isLoggedin);
       })
       .catch((e) => {
         return e;
       });
-  }, []);
+  }, [user]);
 
   return (
     <div id='app'>

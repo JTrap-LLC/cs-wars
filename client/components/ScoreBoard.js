@@ -8,7 +8,6 @@ const ScoreBoard = (props) => {
     fetch('/users')
       .then((resp) => resp.json())
       .then((resp) => {
-        console.log(resp);
         setUserInfo(resp);
       })
       .catch((e) => {
