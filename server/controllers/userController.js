@@ -92,13 +92,14 @@ userController.createUser = async (req, res, next) => {
       completed,
     } = res.locals.createuser;
     const string = `
-        INSERT INTO users (firstName, lastName, cwUsername, rank, completed)
-        VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed})
-        RETURNING *
+    INSERT INTO users (firstName, lastName, cwUsername, rank, completed)
+      VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed})
+      RETURNING *
       `;
+
     const { rows } = await db.query(string);
     res.locals.userinfo = rows[0];
-    console.log(res.locals.userinfo);
+    console.log('usercontrollerCREATEUSER', res.locals.userinfo);
     next();
   } catch (err) {
     next(err);

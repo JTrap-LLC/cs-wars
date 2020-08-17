@@ -45,10 +45,12 @@ codewarsController.getUsers = (req, res, next) => {
 
 // //======= CREATE USER ========// returns the codewars data based on CW-Username
 codewarsController.createUser = (req, res, next) => {
+  console.log('REQUEST BODY', req.body);
   const { cwUsername } = req.body;
   fetch(`https://www.codewars.com/api/v1/users/${cwUsername}`)
     .then((resp) => resp.json())
     .then((resp) => {
+      console.log('Codewars', resp);
       req.body.rank = resp.ranks.overall.name;
       req.body.completed = resp.codeChallenges.totalCompleted;
       res.locals.createuser = req.body;
