@@ -18,7 +18,7 @@ const UserInfo = (props) => {
 
   return (
     <div id='user-info'>
-    <center> <h1>Welcome back {data.cwusername}!</h1></center>
+    <center> <h1>Welcome {data.cwusername}!</h1></center>
     <br />
       <ul>        
         <li> Completed Challanges: {data.completed}</li>
