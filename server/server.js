@@ -29,6 +29,9 @@ if (process.env.NODE_ENV === 'production') {
 
 // TEST router
 app.use('/test', testRouter);
+app.use('/facebook',
+(req,res) => console.log('fb stuff received !!!! <<<<')
+)
 
 // catch-all route handler for req to unknown routes
 app.use((req, res) => {
