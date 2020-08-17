@@ -1,5 +1,6 @@
 import React, { Component, Fragment, PureComponent } from 'react';
 import { addFacebookScript } from '../fbScript';
+import fbImg from '../assets/fb-login.png';
 
 class FacebookAuthorize extends Component {
   constructor(props) {
@@ -78,13 +79,20 @@ class FacebookAuthorize extends Component {
   render() {
     return (
       <Fragment>
-        <button
-          type='button'
-          className='btn facebook'
-          onClick={this.handleClick}
-        >
-          Facebook
-        </button>
+        <div id='face-button'>
+          <button
+            type='button'
+            className='btn-facebook'
+            onClick={this.handleClick}
+            // style={`background: url(${fbImg})`}
+          >
+            <img
+              id='facebook'
+              style={{ width: '180px', height: 'auto' }}
+              src={fbImg}
+            />
+          </button>
+        </div>
       </Fragment>
     );
   }

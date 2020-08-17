@@ -3,9 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: [
-    './client/index.js',
-  ],
+  entry: ['./client/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
@@ -14,7 +12,7 @@ module.exports = {
   devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
   devServer: {
-    https:true,
+    https: true,
     host: 'localhost',
     port: 8080,
     contentBase: path.resolve(__dirname, 'dist'),
@@ -43,6 +41,14 @@ module.exports = {
         test: /.(css|scss)$/,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|jpg|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       },
     ],
   },
