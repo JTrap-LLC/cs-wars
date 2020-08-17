@@ -1,3 +1,6 @@
+var fs = require('fs')
+var https = require('https')
+
 const express = require('express');
 const app = express();
 
@@ -6,6 +9,15 @@ const path = require('path');
 // Require Routers:
 const userRouter = require('./routes/userRouter');
 
+var certOptions = {
+  key: fs.readFileSync(path.resolve(__dirname, '../server.key')),
+  cert: fs.readFileSync(path.resolve(__dirname, '../server.crt'))
+}
+
+// // require routers:
+// const testRouter = require('./routes/testrouter');
+
+// parse req body:
 // handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,8 +50,10 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Listening on port: ${PORT}`);
+// });
+
+https.createServer(certOptions, app).listen(PORT, () => { console.log(`Listening on port ${PORT}...`); })
 
 module.exports = app;

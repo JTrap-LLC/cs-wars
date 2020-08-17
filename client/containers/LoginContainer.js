@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import FacebookAuthorize from './fbAuthorize.js'
+
 
 const LoginContainer = (props) => {
   const [name, setName] = useState('');
@@ -42,6 +44,7 @@ const LoginContainer = (props) => {
           <input className='myButton' type='submit' />
         </center>
       </form>
+      <FacebookAuthorize />
     </div>
   );
 };
