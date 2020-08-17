@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get(
   '/user/:id',
+  userController.loadFromFacebookid,
   codewarsController.getUser, // returns codewars user data
   userController.updateUser, // update sql db with codewars user data
   (req, res) => {

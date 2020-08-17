@@ -6,9 +6,26 @@ const userController = {};
 // TABLE: "users"
 // COLUMNS: "firstName", "lastName", "cwusername"
 
-//======= GET USER ========//
+userController.loadFromFacebookid = async (req, res, next) => {
+  const { id } = req.params;
+  try { // queryString is getting the codewars username
+    let queryString = `
+    SELECT cwusername
+    FROM users
+    WHERE facebookid = '${id}'
+    `;
+
+    const { rows } = await db.query(queryString);
+    res.locals.cwuser = await rows[0];
+    next();
+  } catch (err) {
+    next({
+      log: 'Error thrown in loadFromFacebookid middleware',
+    });
+  }
+};
+//======= UPDATE USER ========//
 userController.updateUser = async (req, res, next) => {
-  console.log('rlu', res.locals.user);
   const cwUsername = res.locals.user.username;
   const rank = res.locals.user.ranks.overall.name;
   const completed = res.locals.user.codeChallenges.totalCompleted;
@@ -22,6 +39,7 @@ userController.updateUser = async (req, res, next) => {
 
     const { rows } = await db.query(queryString);
     res.locals.userSQL = await rows[0];
+    console.log(res.locals.userSQL)
     next();
   } catch (err) {
     next({
@@ -90,10 +108,11 @@ userController.createUser = async (req, res, next) => {
       cwUsername,
       rank,
       completed,
+      facebookid,
     } = res.locals.createuser;
     const string = `
-        INSERT INTO users (firstName, lastName, cwUsername, rank, completed)
-        VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed})
+        INSERT INTO users (firstName, lastName, cwUsername, rank, completed, facebookid)
+        VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed}, '${facebookid})
         RETURNING *
       `;
     const { rows } = await db.query(string);
