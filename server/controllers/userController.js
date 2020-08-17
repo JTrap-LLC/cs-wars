@@ -35,7 +35,8 @@ userController.getUsers = async (req, res, next) => {
   try {
     let queryString = `
     SELECT *
-    FROM users;
+    FROM users
+    ORDER BY completed DESC;
     `;
 
     const { rows } = await db.query(queryString);

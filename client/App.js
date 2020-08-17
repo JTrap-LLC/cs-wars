@@ -6,6 +6,7 @@ import MainContainer from './containers/MainContainer';
 const App = () => {
   const [user, setUsername] = useState('Alonsog66'); // Codewars Username
   const [userInfo, setUserInfo] = useState([]); // User info from DB
+  const [isLoggedin, setLogin] = useState(true);
 
   useEffect(() => {
     fetch(`/user/${user}`) // need to get from login
@@ -20,22 +21,28 @@ const App = () => {
 
   return (
     <div id='app'>
-      <LoginContainer setUsername={setUsername} />
-
-      {!userInfo.length ? (
-        <div></div>
+      {!isLoggedin ? (
+        <LoginContainer
+          setUsername={setUsername} /* renders if we are NOT logged in */
+        />
       ) : (
         <div>
-          <NavContainer
-            username={
-              userInfo[0].cwusername
-            } /* Passes the codewars username from userInfo state object */
-          />
-          <MainContainer
-            codeWarsData={JSON.stringify(
-              userInfo[0]
-            )} /* Passes user info from DB */
-          />
+          {!userInfo.length ? (
+            <div></div>
+          ) : (
+            <div>
+              <NavContainer
+                username={
+                  userInfo[0].cwusername
+                } /* Passes the codewars username from userInfo state object */
+              />
+              <MainContainer
+                codeWarsData={JSON.stringify(
+                  userInfo[0]
+                )} /* Passes user info from DB */
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const UserInfo = (props) => {
-  const data = JSON.parse(props.codeWarsData);
+  const data = JSON.parse(props.codeWarsData); // All the user info (passed from App)
   console.log('DATA IN USERINFO', data);
   return (
     <div id='user-info'>
