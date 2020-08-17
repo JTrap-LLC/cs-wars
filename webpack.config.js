@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
   entry: [
     './client/index.js',
@@ -24,7 +25,7 @@ module.exports = {
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
       '/': {
-        target: 'http://localhost:3000/',
+        target: 'https://localhost:3000/',
         secure: false,
       },
     },

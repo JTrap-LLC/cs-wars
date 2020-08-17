@@ -3,35 +3,35 @@ var https = require('https')
 
 const express = require('express');
 const app = express();
-const PORT = 3000;
 
+const PORT = 3000;
 const path = require('path');
+// Require Routers:
+const userRouter = require('./routes/userRouter');
 
 var certOptions = {
   key: fs.readFileSync(path.resolve(__dirname, '../server.key')),
   cert: fs.readFileSync(path.resolve(__dirname, '../server.crt'))
 }
 
-// require routers:
-const testRouter = require('./routes/testrouter');
+// // require routers:
+// const testRouter = require('./routes/testrouter');
 
 // parse req body:
+// handle parsing request body
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// When starting from "production"
 if (process.env.NODE_ENV === 'production') {
-  // statically serve everything in the dist folder on the route
-  app.use('/', express.static(path.join(__dirname, '../dist')));
-  // serve index.html on the route '/'
+  app.use('/', express.static(path.join(__dirname, '../dist'))); // statically serve everything in the dist folder
   app.get('/', (req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '../dist/index.html'));
+    res.status(201).sendFile(path.join(__dirname, '../dist/index.html')); // send the index.html to browser
   });
 }
 
-// TEST router
-app.use('/test', testRouter);
-app.use('/facebook',
-(req,res) => console.log('fb stuff received !!!! <<<<')
-)
+// ROUTERS
+app.use('/', userRouter);
 
 // catch-all route handler for req to unknown routes
 app.use((req, res) => {

@@ -5,14 +5,27 @@
 }
 
 body {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(121, 9, 9, 1) 35%,
-    rgba(0, 69, 255, 1) 100%
-  );
+  background: #222222;
+
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 105%;
   color: white;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+#App {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 5px solid black;
+  border-radius: 14px;
+  box-shadow: 3px 5px 15px 0px rgba(0, 0, 0, 0.72);
+}
+
+ul {
+  list-style: none;
 }
 
 #login-container {
@@ -22,25 +35,43 @@ body {
 }
 
 #nav {
-  width: 100vw;
+  padding: 3vh;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
   height: 10vh;
-  background-color: red;
+  background-color: #003366;
 }
 
 #main-container {
   display: flex;
-
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 100%;
 }
 
 #user-info {
-  background-color: black;
-  width: 40vw;
+  background-color: rgb(71, 9, 26);
+  width: 100%;
   height: 40vh;
+  border-radius: 0px 0px 14px 14px;
+  padding: 10px;
 }
 
 #score-board {
-  background-color: grey;
-  width: 30vw;
-  height: 80vh;
+  background-color: rgb(110, 109, 109);
+  width: 30%;
+  height: 40vh;
+  border-radius: 0px 0px 14px 14px;
+  overflow: auto;
+}
+
+#scoreboard-title {
+  text-align: center;
+}
+
+#player {
+  padding: 3px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 10px;
 }
