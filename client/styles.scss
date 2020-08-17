@@ -13,6 +13,18 @@ body {
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
+img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+#face-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #App {
   width: 90%;
   margin: 0 auto;
@@ -35,6 +47,8 @@ ul {
 }
 
 #login-container {
+  display: flex;
+  justify-content: center;
   background-color: black;
   width: 40vw;
   height: 40vh;
@@ -49,9 +63,11 @@ ul {
   background-color: #003366;
 }
 
-#main-container {
+#main-container,
+.main-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 

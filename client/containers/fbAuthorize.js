@@ -78,13 +78,15 @@ class FacebookAuthorize extends Component {
   render() {
     return (
       <Fragment>
-        <button
-          type='button'
-          className='btn facebook'
-          onClick={this.handleClick}
-        >
-          Facebook
-        </button>
+        <div id='face-button'>
+          <button
+            type='button'
+            className='btn facebook'
+            onClick={this.handleClick}
+          >
+            Facebook
+          </button>
+        </div>
       </Fragment>
     );
   }

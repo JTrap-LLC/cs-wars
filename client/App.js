@@ -76,7 +76,7 @@ const App = () => {
   return (
     <div id='app'>
       {!isLoggedin ? (
-        <div>
+        <div className='main-container'>
           {isCollecting ? (
             <div>
               <CollectCWUsername setcwUsername={setcwUsername} />
