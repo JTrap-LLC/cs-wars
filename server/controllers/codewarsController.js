@@ -49,6 +49,7 @@ codewarsController.createUser = (req, res, next) => {
   fetch(`https://www.codewars.com/api/v1/users/${cwUsername}`)
     .then((resp) => resp.json())
     .then((resp) => {
+      console.log('Codewars', resp);
       req.body.rank = resp.ranks.overall.name;
       req.body.completed = resp.codeChallenges.totalCompleted;
       res.locals.createuser = req.body;

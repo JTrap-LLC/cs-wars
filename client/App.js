@@ -2,38 +2,82 @@ import React, { useState, useEffect } from 'react';
 import LoginContainer from './containers/LoginContainer';
 import NavContainer from './containers/NavContainer';
 import MainContainer from './containers/MainContainer';
+import CollectCWUsername from './components/CollectCWUsername';
 
 const App = () => {
-  const [facebookid, setFacebookid] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [facebookid, setFacebookid] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [user, setUsername] = useState(''); // Codewars Username
   const [userInfo, setUserInfo] = useState([]); // User info from DB
   const [isLoggedin, setLogin] = useState(false);
+  const [isCollecting, setCollecting] = useState(false);
+  const [cwuser, setcwUsername] = useState(''); // Codewars Username
 
+  // Fetch request to get valid user
   useEffect(() => {
-    fetch(`/user/${facebookid}`) // the params we use to load the page
-      .then((resp) => resp.json())
-      .then((resp) => {
-        setUserInfo([resp]);
-        setLogin(true);
-      })
-      .catch((e) => {
-        setLogin(false);
-        // we want some logic to go to a 'signup' page to get codewars username (where the 'createuser' endpt will live)
-        return e;
-      });
+    if (facebookid.length) {
+      fetch(`/user/${facebookid}`) // the params we use to load the page
+        .then((resp) => resp.json())
+        .then((resp) => {
+          console.log(resp);
+          setUserInfo([resp]);
+          setLogin(true);
+        })
+        .catch((e) => {
+          console.log('AHHH', e);
+          setCollecting(!isCollecting);
+          return e;
+        });
+    }
   }, [facebookid]);
+
+  // Fetch request to create user
+  useEffect(() => {
+    if (cwuser.length) {
+      console.log('cwuser');
+      fetch(`/user/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          facebookid,
+          cwUsername: cwuser,
+          firstName: firstName,
+          lastName: lastName,
+        }),
+      }) // need to get from login
+        .then((resp) => resp.json())
+        .then((resp) => {
+          console.log(resp);
+          setUserInfo([resp]);
+          setLogin(!isLoggedin);
+        })
+        .catch((e) => {
+          console.log('Invalid CW username');
+          return e;
+        });
+    }
+  }, [cwuser]);
 
   return (
     <div id='app'>
       {!isLoggedin ? (
-        <LoginContainer
-          setUsername={setUsername} /* renders if we are NOT logged in */
-          setFacebookid={setFacebookid}
-          setFirstName={setFirstName}
-          setLastName={setLastName}
-        />
+        <div>
+          {isCollecting ? (
+            <div>
+              <CollectCWUsername setUsername={setcwUsername} />
+            </div>
+          ) : (
+            <LoginContainer
+              setUsername={setUsername} /* renders if we are NOT logged in */
+              setFacebookid={setFacebookid}
+              setFirstName={setFirstName}
+              setLastName={setLastName}
+            />
+          )}
+        </div>
       ) : (
         <div>
           {!userInfo.length ? (

@@ -8,7 +8,9 @@ const userController = {};
 
 userController.loadFromFacebookid = async (req, res, next) => {
   const { id } = req.params;
-  try { // queryString is getting the codewars username
+
+  try {
+    // queryString is getting the codewars username
     let queryString = `
     SELECT cwusername
     FROM users
@@ -39,7 +41,7 @@ userController.updateUser = async (req, res, next) => {
 
     const { rows } = await db.query(queryString);
     res.locals.userSQL = await rows[0];
-    console.log(res.locals.userSQL)
+    console.log(res.locals.userSQL);
     next();
   } catch (err) {
     next({
@@ -115,9 +117,10 @@ userController.createUser = async (req, res, next) => {
         VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed}, '${facebookid})
         RETURNING *
       `;
+
     const { rows } = await db.query(string);
     res.locals.userinfo = rows[0];
-    console.log(res.locals.userinfo);
+    console.log('usercontrollerCREATEUSER', res.locals.userinfo);
     next();
   } catch (err) {
     next(err);
