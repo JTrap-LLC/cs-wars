@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #222222;
+  background: #333333;
 
   font-family: Verdana, Geneva, sans-serif;
   font-size: 105%;
@@ -15,25 +15,29 @@ body {
 
 img {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
+  justify-content: flex-start;
+  height: 150px;
+  border: solid 2px #fff;
+  border-radius: 4px;
 }
+
 #face-button {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
 #App {
-  width: 90%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border: 5px solid black;
-  border-radius: 14px;
+  border-radius: 3px;
   box-shadow: 3px 5px 15px 0px rgba(0, 0, 0, 0.72);
+}
+.btn-facebook {
+  background-color: black;
+  border: none;
 }
 
 ul {
@@ -48,8 +52,12 @@ ul {
 
 #login-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
   background-color: black;
+  border-radius: 10px;
+  padding: 10em;
   width: 40vw;
   height: 40vh;
 }
