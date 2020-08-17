@@ -114,7 +114,7 @@ userController.createUser = async (req, res, next) => {
     } = res.locals.createuser;
     const string = `
         INSERT INTO users (firstName, lastName, cwUsername, rank, completed, facebookid)
-        VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed}, '${facebookid})
+        VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed}, '${facebookid}')
         RETURNING *
       `;
 

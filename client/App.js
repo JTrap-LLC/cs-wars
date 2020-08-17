@@ -20,14 +20,13 @@ const App = () => {
       fetch(`/user/${facebookid}`) // the params we use to load the page
         .then((resp) => resp.json())
         .then((resp) => {
-          console.log(resp);
+          if (resp.err) return setCollecting(!isCollecting);
           setUserInfo([resp]);
           setLogin(true);
         })
         .catch((e) => {
           console.log('AHHH', e);
-          setCollecting(!isCollecting);
-          return e;
+          return;
         });
     }
   }, [facebookid]);
@@ -35,7 +34,6 @@ const App = () => {
   // Fetch request to create user
   useEffect(() => {
     if (cwuser.length) {
-      console.log('cwuser');
       fetch(`/user/create`, {
         method: 'POST',
         headers: {
@@ -67,7 +65,7 @@ const App = () => {
         <div>
           {isCollecting ? (
             <div>
-              <CollectCWUsername setUsername={setcwUsername} />
+              <CollectCWUsername setcwUsername={setcwUsername} />
             </div>
           ) : (
             <LoginContainer

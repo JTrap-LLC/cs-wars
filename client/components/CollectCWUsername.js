@@ -9,7 +9,7 @@ const CollectCWUsername = (props) => {
         value='Update'
         onSubmit={(e) => {
           e.preventDefault();
-          props.setUsername(
+          props.setcwUsername(
             name
           ); /* On submit, update the username state in App */
         }}
