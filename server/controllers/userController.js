@@ -8,7 +8,7 @@ const userController = {};
 
 //======= GET USER ========//
 userController.updateUser = async (req, res, next) => {
-  console.log('rlu', res.locals.user)
+  console.log('rlu', res.locals.user);
   const cwUsername = res.locals.user.username;
   const rank = res.locals.user.ranks.overall.name;
   const completed = res.locals.user.codeChallenges.totalCompleted;
@@ -34,13 +34,13 @@ userController.updateUser = async (req, res, next) => {
 userController.getUsers = async (req, res, next) => {
   try {
     let queryString = `
-    SELECT cwusername
+    SELECT *
     FROM users;
     `;
 
     const { rows } = await db.query(queryString);
     res.locals.cwusernames = await rows;
-    console.log('Hit userController.getUsers')
+    console.log('Hit userController.getUsers');
     next();
   } catch (err) {
     next({
@@ -49,32 +49,12 @@ userController.getUsers = async (req, res, next) => {
   }
 };
 
-// userController.userDoesntExist = async (req, res, next) => {
-//   try {
-//     let queryString = `
-//     SELECT cwusername
-//     FROM users
-//     where ;
-//     `;
-
-//     const { rows } = await db.query(queryString);
-//     res.locals.cwusernames = await rows;
-//     console.log('Hit userController.getUsers')
-//     next();
-//   } catch (err) {
-//     next({
-//       log: 'Error thrown in getUsers middleware',
-//     });
-//   }
-// };
-
 //======= UPDATE USERS ========//
 userController.updateUsers = async (req, res, next) => {
   try {
     const updatedArr = await Promise.all(
-      res.locals.cwusersdata.map(async userdata => {
-
-        if(userdata.username){
+      res.locals.cwusersdata.map((userdata) => {
+        if (userdata.username) {
           const csUsername = userdata.username;
           const rank = userdata.ranks.overall.name;
           const completed = userdata.codeChallenges.totalCompleted;
@@ -84,36 +64,40 @@ userController.updateUsers = async (req, res, next) => {
           WHERE cwUsername='${csUsername}'
           RETURNING *;
           `;
-          const { rows } = await db.query(queryString);
+          const { rows } = db.query(queryString);
+          console.log(rows);
           return rows[0];
-        } 
-        else return;
+        } else return;
       })
-    )
-    
+    );
+
     res.locals.SQLusers = await updatedArr;
     next();
   } catch (err) {
     next({
-      log: 'Error thrown in getUsers middleware',
+      log: err,
     });
   }
 };
 
-
-
 // //======= CREATE USER ========//
 userController.createUser = async (req, res, next) => {
   try {
-    const { firstName, lastName, cwUsername, rank, completed } = res.locals.createuser;
+    const {
+      firstName,
+      lastName,
+      cwUsername,
+      rank,
+      completed,
+    } = res.locals.createuser;
     const string = `
         INSERT INTO users (firstName, lastName, cwUsername, rank, completed)
         VALUES ('${firstName}', '${lastName}', '${cwUsername}', '${rank}', ${completed})
         RETURNING *
       `;
-    const {rows} = await db.query(string);
+    const { rows } = await db.query(string);
     res.locals.userinfo = rows[0];
-    console.log(res.locals.userinfo)
+    console.log(res.locals.userinfo);
     next();
   } catch (err) {
     next(err);

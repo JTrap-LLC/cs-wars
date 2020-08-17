@@ -7,7 +7,7 @@ const NavContainer = (props) => {
         style={{ width: '60px', height: '60px' }}
         src={`https://robohash.org/set_set4/${Math.random()}`}
       ></img>
-      {props.username}
+      {props.username /* Codewars Username from App*/}
     </div>
   );
 };

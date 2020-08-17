@@ -4,19 +4,14 @@ import NavContainer from './containers/NavContainer';
 import MainContainer from './containers/MainContainer';
 
 const App = () => {
-  const [user, setUsername] = useState('');
-  const [userInfo, setUserInfo] = useState([]);
+  const [user, setUsername] = useState('Alonsog66'); // Codewars Username
+  const [userInfo, setUserInfo] = useState([]); // User info from DB
 
   useEffect(() => {
-    // const userName = 'sull364'; // needs to come from server; user logs in and username is served to front end
-    // var proxyUrl = 'https://cors-anywhere.herokuapp.com/', // this needs to move to the back end
-    //   targetUrl = `https://www.codewars.com/api/v1/users/${userName}`; //move to back end
-
-    fetch(`/user/sull364`) // need to get from login
+    fetch(`/user/${user}`) // need to get from login
       .then((resp) => resp.json())
       .then((resp) => {
         setUserInfo([resp]);
-        console.log('THIS IS THE RESULT: ', resp);
       })
       .catch((e) => {
         return e;
@@ -31,8 +26,16 @@ const App = () => {
         <div></div>
       ) : (
         <div>
-          {/* <NavContainer username={userInfo[0].username} />
-          <MainContainer codeWarsData={JSON.stringify(userInfo[0])} /> */}
+          <NavContainer
+            username={
+              userInfo[0].cwusername
+            } /* Passes the codewars username from userInfo state object */
+          />
+          <MainContainer
+            codeWarsData={JSON.stringify(
+              userInfo[0]
+            )} /* Passes user info from DB */
+          />
         </div>
       )}
     </div>

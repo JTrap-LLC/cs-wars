@@ -16,30 +16,31 @@ codewarsController.getUser = (req, res, next) => {
       res.locals.user = resp;
       next();
     })
-    .catch(err => {
+    .catch((err) => {
       next({
         log: err,
-      })
-    })
+      });
+    });
 };
 
 //======= GET USERS ========// returns the codewars data based on CW-Usernames
 codewarsController.getUsers = (req, res, next) => {
   Promise.all(
-    res.locals.cwusernames.map(user => {
+    res.locals.cwusernames.map((user) => {
       let id = user.cwusername;
-      return fetch(`https://www.codewars.com/api/v1/users/${id}`)
-        .then((resp) => resp.json())
+      return fetch(`https://www.codewars.com/api/v1/users/${id}`).then((resp) =>
+        resp.json()
+      );
     })
   )
-  .then((resp) => {
-    // console.log('THIS IS THE RESULT from PromiseAll: ', resp);
-    res.locals.cwusersdata = resp;
-    next();
-  })
-  .catch(err => {
-    next({log: err})
-  })
+    .then((resp) => {
+      // console.log('THIS IS THE RESULT from PromiseAll: ', resp);
+      res.locals.cwusersdata = resp;
+      next();
+    })
+    .catch((err) => {
+      next({ log: err });
+    });
 };
 
 // //======= CREATE USER ========// returns the codewars data based on CW-Username
@@ -54,11 +55,11 @@ codewarsController.createUser = (req, res, next) => {
       console.log(res.locals.createuser);
       next();
     })
-    .catch(err => {
-       next({
-       log: err,
-     })
-  })
+    .catch((err) => {
+      next({
+        log: err,
+      });
+    });
 };
 
 module.exports = codewarsController;

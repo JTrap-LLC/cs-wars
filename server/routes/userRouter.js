@@ -15,10 +15,10 @@ router.get(
 router.get(
   '/users',
   userController.getUsers, // returns array of cw-username from db
-  codewarsController.getUsers, // get codewars data from api
-  userController.updateUsers, // update db with codewars data
+  // codewarsController.getUsers, // get codewars data from api
+  // userController.updateUsers, // update db with codewars data
   (req, res) => {
-    res.status(200).send(res.locals.SQLusers);
+    res.status(200).send(res.locals.cwusernames);
   }
 );
 
