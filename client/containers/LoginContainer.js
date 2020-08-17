@@ -44,7 +44,11 @@ const LoginContainer = (props) => {
           <input className='myButton' type='submit' />
         </center>
       </form>
-      <FacebookAuthorize />
+      <FacebookAuthorize 
+        setFacebookid = {props.setFacebookid}
+        setFirstName={props.setFirstName}
+        setLastName={props.setLastName}
+      />
     </div>
   );
 };
