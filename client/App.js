@@ -4,27 +4,35 @@ import NavContainer from './containers/NavContainer';
 import MainContainer from './containers/MainContainer';
 
 const App = () => {
+  const [facebookid, setFacebookid] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [user, setUsername] = useState(''); // Codewars Username
   const [userInfo, setUserInfo] = useState([]); // User info from DB
   const [isLoggedin, setLogin] = useState(false);
 
   useEffect(() => {
-    fetch(`/user/${user}`) // need to get from login
+    fetch(`/user/${facebookid}`) // the params we use to load the page
       .then((resp) => resp.json())
       .then((resp) => {
         setUserInfo([resp]);
-        setLogin(!isLoggedin);
+        setLogin(true);
       })
       .catch((e) => {
+        setLogin(false);
+        // we want some logic to go to a 'signup' page to get codewars username (where the 'createuser' endpt will live)
         return e;
       });
-  }, [user]);
+  }, [facebookid]);
 
   return (
     <div id='app'>
       {!isLoggedin ? (
         <LoginContainer
           setUsername={setUsername} /* renders if we are NOT logged in */
+          setFacebookid={setFacebookid}
+          setFirstName={setFirstName}
+          setLastName={setLastName}
         />
       ) : (
         <div>

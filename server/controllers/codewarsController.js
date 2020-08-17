@@ -9,7 +9,7 @@ const codewarsController = {};
 
 //======= GET USER ========// returns the codewars all data based on CW-Username
 codewarsController.getUser = (req, res, next) => {
-  const { id } = req.params;
+  const id = res.locals.cwuser.cwusername;
   fetch(`https://www.codewars.com/api/v1/users/${id}`)
     .then((resp) => resp.json())
     .then((resp) => {
@@ -45,7 +45,7 @@ codewarsController.getUsers = (req, res, next) => {
 
 // //======= CREATE USER ========// returns the codewars data based on CW-Username
 codewarsController.createUser = (req, res, next) => {
-  const { cwUsername } = req.body;
+  const { cwUsername } = req.body; // assume req.body comes with firstname, lastname, cwusername, facebookid
   fetch(`https://www.codewars.com/api/v1/users/${cwUsername}`)
     .then((resp) => resp.json())
     .then((resp) => {

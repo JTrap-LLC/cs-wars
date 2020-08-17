@@ -26,14 +26,14 @@ class FacebookAuthorize extends Component {
             console.log(error.name, ':', error.message);
         }
     }
-    handleClick = () => {
+    handleClick = () => { // when you click facebook login icon
 
         FB.getLoginStatus((resp) => {
             console.log('FB: status: ', resp.status);
             const params = {
                 provider: 'facebook'
             };
-            if (resp.status === 'connected') {
+            if (resp.status === 'connected') { // if user is connected...
                 params.fbAccessToken = resp.authResponse.accessToken; //>>> need accessToken to do further api calls
                 console.log('this is the access token: ', params.fbAccessToken)
 
@@ -41,18 +41,23 @@ class FacebookAuthorize extends Component {
                     const { name, id } = response;
                     console.log('name: ', name) //>>>> use these variables to change this.state
                     console.log('id: ', id) //>>>> use these variables to change this.state
+                    this.props.setFacebookid(id) //>>>> Sets the Facebookid state (from App)
+                    // get the name from facebook
+                    this.props.setFirstName()
+                    this.props.setLastName()
                 });
                 // onSuccess(params, this.props.currentUser); 
                 return;
             }
 
-            FB.login((resp) => {
-                if (resp.authResponse) {
+            FB.login((resp) => { // if user is not connected... asks you to login
+                if (resp.authResponse) { // facebook returns this resp object
+                    
                     FB.api('/me', (response) => {
                         const { name, id } = response;
                         console.log('name: ', name) //>>>> use these variables to change this.state
                         console.log('id: ', id) //>>>> use these variables to change this.state
-
+                        this.props.setFacebookid(id)//>>>> Sets the Facebookid state (from App)
                     });
                     params.fbAccessToken = resp.authResponse.accessToken;
                     // onSuccess(this.state, this.props.currentUser);
