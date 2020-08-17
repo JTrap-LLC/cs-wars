@@ -12,9 +12,18 @@ const UserInfo = (props) => {
         language={challenge.completedLanguages[0]}
         date={challenge.completedAt}
       />
-      
     )
   })
+  
+  let dateDiff;
+  if (props.userChallenges.length) {
+    const lastChallDate = new Date(props.userChallenges[0].completedAt);
+    console.log(lastChallDate)
+    const currDate = new Date();
+    console.log(currDate)
+    dateDiff = Math.round((currDate - lastChallDate)/ (60*60*24*1000));
+    console.log(dateDiff)
+  }
 
   return (
     <div id='user-info'>
@@ -31,6 +40,8 @@ const UserInfo = (props) => {
       <div id="challenges">
       {challenges}
       </div>
+      <center><h1>Days since your last challenge:</h1></center>
+      {props.userChallenges.length && <center><h1>{dateDiff}</h1></center>}
     </div>
   );
 };

@@ -14,6 +14,7 @@ const App = () => {
   const [isLoggedin, setLogin] = useState(false);
   const [isCollecting, setCollecting] = useState(false);
   const [cwuser, setcwUsername] = useState(''); // Codewars Username
+  const [closure, setClosure] = useState(false);
 
   // Fetch request to get valid user
   useEffect(() => {
@@ -35,28 +36,31 @@ const App = () => {
   // Fetch request to create user
   useEffect(() => {
     if (cwuser.length) {
-      fetch(`/user/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          facebookid,
-          cwUsername: cwuser,
-          firstName: firstName,
-          lastName: lastName,
-        }),
-      }) // need to get from login
-        .then((resp) => resp.json())
-        .then((resp) => {
-          console.log(resp);
-          setUserInfo([resp]);
-          setLogin(!isLoggedin);
-        })
-        .catch((e) => {
-          console.log('Invalid CW username');
-          return e;
-        });
+      if (!closure) {
+        setClosure(!closure);
+        fetch(`/user/create`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            facebookid,
+            cwUsername: cwuser,
+            firstName: firstName,
+            lastName: lastName,
+          }),
+        }) // need to get from login
+          .then((resp) => resp.json())
+          .then((resp) => {
+            console.log(resp);
+            setUserInfo([resp]);
+            setLogin(!isLoggedin);
+          })
+          .catch((e) => {
+            console.log('Invalid CW username');
+            return e;
+          });
+      }
     }
   });
 
