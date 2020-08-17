@@ -30,8 +30,9 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// ROUTERS
+// ======= MAIN ROUTER ========== //
 app.use('/', userRouter);
+// ====== ^MAIN ROUTER^ ========= //
 
 // catch-all route handler for req to unknown routes
 app.use((req, res) => {

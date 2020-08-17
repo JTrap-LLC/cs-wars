@@ -1,50 +1,21 @@
-import React, { useState } from 'react';
-import FacebookAuthorize from './fbAuthorize.js'
-
+import React from 'react';
+import FacebookAuthorize from './fbAuthorize.js';
+import img from '../assets/123.jpg';
 
 const LoginContainer = (props) => {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-
   return (
     <div id='login-container'>
-      <form
-        action=''
-        value='Update'
-        onSubmit={(e) => {
-          e.preventDefault();
-          props.setUsername(
-            name
-          ); /* On submit, update the username state in App */
-        }}
-      >
-        <div>
-          <label>User:</label>
-          <input
-            type='text'
-            onChange={(e) =>
-              setName(e.target.value)
-            } /* When user enters password, update the name state above */
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type='password'
-            onChange={
-              (e) =>
-                setPassword(
-                  e.target.value
-                ) /* When user enters password, update the name state above */
-            }
-          />
-        </div>
-        <br></br>
-        <center>
-          <input className='myButton' type='submit' />
-        </center>
-      </form>
-      <FacebookAuthorize />
+      <img src={img}></img>
+      <br></br>
+      <center>
+        <h2>Join the Code Smith Wars!!</h2>
+      </center>
+      <br></br>
+      <FacebookAuthorize
+        setFacebookid={props.setFacebookid}
+        setFirstName={props.setFirstName}
+        setLastName={props.setLastName}
+      />
     </div>
   );
 };

@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get(
   '/user/:id',
+  userController.loadFromFacebookid,
   codewarsController.getUser, // returns codewars user data
   userController.updateUser, // update sql db with codewars user data
   (req, res) => {
@@ -12,13 +13,9 @@ router.get(
   }
 );
 
-router.get(
-  '/challenges/:id',
-  codewarsController.getChallenges,
-  (req, res) => {
-    res.status(200).send(res.locals.challenges);
-  }
-);
+router.get('/challenges/:id', codewarsController.getChallenges, (req, res) => {
+  res.status(200).send(res.locals.challenges);
+});
 
 router.get(
   '/users',

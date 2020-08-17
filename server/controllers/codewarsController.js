@@ -9,7 +9,7 @@ const codewarsController = {};
 
 //======= GET USER ========// returns the codewars all data based on CW-Username
 codewarsController.getUser = (req, res, next) => {
-  const { id } = req.params;
+  const id = res.locals.cwuser.cwusername;
   fetch(`https://www.codewars.com/api/v1/users/${id}`)
     .then((resp) => resp.json())
     .then((resp) => {
@@ -43,10 +43,12 @@ codewarsController.getUsers = (req, res, next) => {
     });
 };
 
-//======= GET CHALLENGES ========// 
+//======= GET CHALLENGES ========//
 codewarsController.getChallenges = (req, res, next) => {
   const { id } = req.params;
-  fetch(`https://www.codewars.com/api/v1/users/${id}/code-challenges/completed?page=0`)
+  fetch(
+    `https://www.codewars.com/api/v1/users/${id}/code-challenges/completed?page=0`
+  )
     .then((resp) => resp.json())
     .then((resp) => {
       res.locals.challenges = [resp.data[0], resp.data[1], resp.data[2]];
@@ -61,10 +63,11 @@ codewarsController.getChallenges = (req, res, next) => {
 
 // //======= CREATE USER ========// returns the codewars data based on CW-Username
 codewarsController.createUser = (req, res, next) => {
-  const { cwUsername } = req.body;
+  const { cwUsername } = req.body; // assume req.body comes with firstname, lastname, cwusername, facebookid
   fetch(`https://www.codewars.com/api/v1/users/${cwUsername}`)
     .then((resp) => resp.json())
     .then((resp) => {
+      console.log('Codewars', resp);
       req.body.rank = resp.ranks.overall.name;
       req.body.completed = resp.codeChallenges.totalCompleted;
       res.locals.createuser = req.body;
