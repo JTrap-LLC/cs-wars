@@ -10,6 +10,7 @@ const App = () => {
   const [lastName, setLastName] = useState('');
   const [user, setUsername] = useState(''); // Codewars Username
   const [userInfo, setUserInfo] = useState([]); // User info from DB
+  const [userChallenges, setUserChallenges] = useState([]);
   const [isLoggedin, setLogin] = useState(false);
   const [isCollecting, setCollecting] = useState(false);
   const [cwuser, setcwUsername] = useState(''); // Codewars Username
@@ -57,7 +58,20 @@ const App = () => {
           return e;
         });
     }
-  }, [cwuser]);
+  });
+
+  useEffect(() => {
+    if (userInfo.length) {
+      fetch(`/challenges/${userInfo[0].cwusername}`) // need to get from login
+        .then((resp) => resp.json())
+        .then((resp) => {
+          setUserChallenges(resp);
+        })
+        .catch((e) => {
+          return e;
+        });
+    }
+  }, [userInfo]);
 
   return (
     <div id='app'>
@@ -91,6 +105,7 @@ const App = () => {
                 codeWarsData={JSON.stringify(
                   userInfo[0]
                 )} /* Passes user info from DB */
+                userChallenges={userChallenges}
               />
             </div>
           )}

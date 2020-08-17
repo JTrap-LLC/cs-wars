@@ -43,6 +43,24 @@ codewarsController.getUsers = (req, res, next) => {
     });
 };
 
+//======= GET CHALLENGES ========//
+codewarsController.getChallenges = (req, res, next) => {
+  const { id } = req.params;
+  fetch(
+    `https://www.codewars.com/api/v1/users/${id}/code-challenges/completed?page=0`
+  )
+    .then((resp) => resp.json())
+    .then((resp) => {
+      res.locals.challenges = [resp.data[0], resp.data[1], resp.data[2]];
+      next();
+    })
+    .catch((err) => {
+      next({
+        log: err,
+      });
+    });
+};
+
 // //======= CREATE USER ========// returns the codewars data based on CW-Username
 codewarsController.createUser = (req, res, next) => {
   const { cwUsername } = req.body; // assume req.body comes with firstname, lastname, cwusername, facebookid
@@ -53,7 +71,7 @@ codewarsController.createUser = (req, res, next) => {
       req.body.rank = resp.ranks.overall.name;
       req.body.completed = resp.codeChallenges.totalCompleted;
       res.locals.createuser = req.body;
-      console.log(res.locals.createuser);
+      // console.log(res.locals.createuser);
       next();
     })
     .catch((err) => {

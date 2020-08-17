@@ -28,6 +28,12 @@ ul {
   list-style: none;
 }
 
+#challenges {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 #login-container {
   background-color: black;
   width: 40vw;
@@ -57,17 +63,23 @@ ul {
   padding: 10px;
 }
 
-#score-board {
+#scoreboard {
   background-color: rgb(110, 109, 109);
   width: 30%;
   height: 40vh;
   border-radius: 0px 0px 14px 14px;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 #scoreboard-title {
   text-align: center;
 }
+
+/*
+#scoreboard-body {
+  overflow-y: auto;
+} 
+*/
 
 #player {
   padding: 3px;
