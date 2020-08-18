@@ -1,11 +1,6 @@
-//const db = require('../models/csWarsModels'); // (text, params, callback)
 const fetch = require('node-fetch');
 
 const codewarsController = {};
-
-// ========= DATABASE INFO ========= //
-// TABLE: "users"
-// COLUMNS: "firstName", "lastName", "cwUsername"
 
 //======= GET USER ========// returns the codewars all data based on CW-Username
 codewarsController.getUser = (req, res, next) => {
@@ -23,27 +18,9 @@ codewarsController.getUser = (req, res, next) => {
     });
 };
 
-//======= GET USERS ========// returns the codewars data based on CW-Usernames
-codewarsController.getUsers = (req, res, next) => {
-  Promise.all(
-    res.locals.cwusernames.map((user) => {
-      let id = user.cwusername;
-      return fetch(`https://www.codewars.com/api/v1/users/${id}`).then((resp) =>
-        resp.json()
-      );
-    })
-  )
-    .then((resp) => {
-      // console.log('THIS IS THE RESULT from PromiseAll: ', resp);
-      res.locals.cwusersdata = resp;
-      next();
-    })
-    .catch((err) => {
-      next({ log: err });
-    });
-};
-
 //======= GET CHALLENGES ========//
+// this gets the users last three completed algos from Code Wars.
+// id is passed through the url
 codewarsController.getChallenges = (req, res, next) => {
   const { id } = req.params;
   fetch(
@@ -61,17 +38,15 @@ codewarsController.getChallenges = (req, res, next) => {
     });
 };
 
-// //======= CREATE USER ========// returns the codewars data based on CW-Username
+//======= CREATE USER ========// returns the codewars data based on CW-Username 
 codewarsController.createUser = (req, res, next) => {
-  const { cwUsername } = req.body; // assume req.body comes with firstname, lastname, cwusername, facebookid
+  const { cwUsername } = req.body; // req.body passes the firstname, lastname, cwusername, facebookid
   fetch(`https://www.codewars.com/api/v1/users/${cwUsername}`)
     .then((resp) => resp.json())
     .then((resp) => {
-      console.log('Codewars', resp);
-      req.body.rank = resp.ranks.overall.name;
-      req.body.completed = resp.codeChallenges.totalCompleted;
-      res.locals.createuser = req.body;
-      // console.log(res.locals.createuser);
+      req.body.rank = resp.ranks.overall.name; // add to req.body
+      req.body.completed = resp.codeChallenges.totalCompleted; // add to req.body
+      res.locals.createuser = req.body; // pass all the collected information into res.locals
       next();
     })
     .catch((err) => {
@@ -80,5 +55,26 @@ codewarsController.createUser = (req, res, next) => {
       });
     });
 };
+
+
+// WE DID NOT USE THIS BECAUSE ELEPHANTSQL DOES NOT ALLOW US TO MAKE TOO MANY QUERIES AT THE SAME TIME!
+//======= GET USERS ========// NOT BEING USED -- returns the codewars data based on CW-Usernames
+// codewarsController.getUsers = (req, res, next) => {
+//   Promise.all(
+//     res.locals.cwusernames.map((user) => {
+//       let id = user.cwusername;
+//       return fetch(`https://www.codewars.com/api/v1/users/${id}`).then((resp) =>
+//         resp.json()
+//       );
+//     })
+//   )
+//     .then((resp) => {
+//       res.locals.cwusersdata = resp;
+//       next();
+//     })
+//     .catch((err) => {
+//       next({ log: err });
+//     });
+// };
 
 module.exports = codewarsController;

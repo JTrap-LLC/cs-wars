@@ -10,14 +10,14 @@ class FacebookAuthorize extends Component {
 
   async componentDidMount() {
     try {
-      await addFacebookScript(); // >>>> this is where we connect to facebook's methods
+      await addFacebookScript(); // >>>> this is imported so we connect to facebook's SDK methods
       const params = {
         appId: '703959263493590',
         cookie: true, // Enable cookies to allow the server to access the session.
         xfbml: true, // Parse social plugins on this webpage.
         version: 'v8.0',
       };
-      FB.init(params); // >>> sending credentials to facebook
+      FB.init(params); // >>> sending credentials to facebook to initialize
       FB.getLoginStatus((resp) => {
         // >>> auto check for login status once page loads.
         console.log('FB Status: ', resp.status); // >>> possible responses: connected, not_authorized, unknown
@@ -39,41 +39,39 @@ class FacebookAuthorize extends Component {
         params.fbAccessToken = resp.authResponse.accessToken; //>>> need accessToken to do further api calls
         console.log('this is the access token: ', params.fbAccessToken);
 
-        FB.api('/me', (response) => {
+        FB.api('/me', (response) => { // >>>>> THIS IS WHERE API CALLS HAPPEN 
           const { name, id } = response;
-          console.log('name: ', name); //>>>> use these variables to change this.state
-          console.log('id: ', id); //>>>> use these variables to change this.state
+          console.log('name: ', name); 
+          console.log('id: ', id); 
           this.props.setFacebookid(id); //>>>> Sets the Facebookid state (from App)
           // get the name from facebook
           const nameArr = name.split(' ');
           this.props.setFirstName(nameArr[0]);
           this.props.setLastName(nameArr[1]);
         });
-        // onSuccess(params, this.props.currentUser);
         return;
       }
 
+      // if user is not connected... asks you to login
       FB.login(
         (resp) => {
-          // if user is not connected... asks you to login
           if (resp.authResponse) {
             // facebook returns this resp object
 
-            FB.api('/me', (response) => {
+            FB.api('/me', (response) => { // >>> WHERE API CALLS HAPPEN
               const { name, id } = response;
-              console.log('name: ', name); //>>>> use these variables to change this.state
-              console.log('id: ', id); //>>>> use these variables to change this.state
+              console.log('name: ', name); 
+              console.log('id: ', id); 
               this.props.setFacebookid(id); //>>>> Sets the Facebookid state (from App)
               const nameArr = name.split(' ');
               this.props.setFirstName(nameArr[0]);
               this.props.setLastName(nameArr[1]);
             });
             params.fbAccessToken = resp.authResponse.accessToken;
-            // onSuccess(this.state, this.props.currentUser);
           }
         },
-        { scope: 'public_profile, email, user_friends' }
-      ); //// >>>>> scope can be adjusted <<<<<<
+        { scope: 'public_profile, email, user_friends' } //// >>>>> scope can be adjusted <<<<<<
+      ); // in dev mode, you can only access, email BUT if you create test users, you can access user/friends (please use for extra features)
     });
   };
   render() {
@@ -84,7 +82,6 @@ class FacebookAuthorize extends Component {
             type='button'
             className='btn-facebook'
             onClick={this.handleClick}
-            // style={`background: url(${fbImg})`}
           >
             <img
               id='facebook'

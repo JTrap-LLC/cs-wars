@@ -4,6 +4,8 @@ import NavContainer from './containers/NavContainer';
 import MainContainer from './containers/MainContainer';
 import CollectCWUsername from './components/CollectCWUsername';
 
+// Should probly do some research on your react hooks fellas ¯\(;_')/¯
+
 const App = () => {
   const [facebookid, setFacebookid] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -14,6 +16,7 @@ const App = () => {
   const [isLoggedin, setLogin] = useState(false);
   const [isCollecting, setCollecting] = useState(false);
   const [cwuser, setcwUsername] = useState(''); // Codewars Username
+  const [closure, setClosure] = useState(false); // Just makes sure that the post request only runs once
 
   // Fetch request to get valid user
   useEffect(() => {
@@ -35,31 +38,35 @@ const App = () => {
   // Fetch request to create user
   useEffect(() => {
     if (cwuser.length) {
-      fetch(`/user/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          facebookid,
-          cwUsername: cwuser,
-          firstName: firstName,
-          lastName: lastName,
-        }),
-      }) // need to get from login
-        .then((resp) => resp.json())
-        .then((resp) => {
-          console.log(resp);
-          setUserInfo([resp]);
-          setLogin(!isLoggedin);
-        })
-        .catch((e) => {
-          console.log('Invalid CW username');
-          return e;
-        });
+      if (!closure) {
+        setClosure(!closure);
+        fetch(`/user/create`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            facebookid,
+            cwUsername: cwuser,
+            firstName: firstName,
+            lastName: lastName,
+          }),
+        }) // need to get from login
+          .then((resp) => resp.json())
+          .then((resp) => {
+            console.log(resp);
+            setUserInfo([resp]);
+            setLogin(!isLoggedin);
+          })
+          .catch((e) => {
+            console.log('Invalid CW username');
+            return e;
+          });
+      }
     }
   });
 
+  // Fetch request to get challenges for user
   useEffect(() => {
     if (userInfo.length) {
       fetch(`/challenges/${userInfo[0].cwusername}`) // need to get from login
@@ -82,35 +89,36 @@ const App = () => {
               <CollectCWUsername setcwUsername={setcwUsername} />
             </div>
           ) : (
-            <LoginContainer
-              setUsername={setUsername} /* renders if we are NOT logged in */
-              setFacebookid={setFacebookid}
-              setFirstName={setFirstName}
-              setLastName={setLastName}
-            />
-          )}
+              <LoginContainer
+                setUsername={setUsername} /* renders if we are NOT logged in */
+                setFacebookid={setFacebookid}
+                setFirstName={setFirstName}
+                setLastName={setLastName}
+              />
+            )}
         </div>
       ) : (
-        <div>
-          {!userInfo.length ? (
-            <div></div>
-          ) : (
-            <div>
-              <NavContainer
-                username={
-                  userInfo[0].cwusername
-                } /* Passes the codewars username from userInfo state object */
-              />
-              <MainContainer
-                codeWarsData={JSON.stringify(
-                  userInfo[0]
-                )} /* Passes user info from DB */
-                userChallenges={userChallenges}
-              />
-            </div>
-          )}
-        </div>
-      )}
+          <div>
+            {!userInfo.length ? (
+              <div></div>
+            ) : (
+                <div>
+                  <NavContainer
+                    username={
+                      userInfo[0].cwusername
+                    } /* Passes the codewars username from userInfo state object */
+                  />
+                  <MainContainer
+                    name={`${firstName} ${lastName}`}
+                    codeWarsData={JSON.stringify(
+                      userInfo[0]
+                    )} /* Passes user info from DB */
+                    userChallenges={userChallenges}
+                  />
+                </div>
+              )}
+          </div>
+        )}
     </div>
   );
 };

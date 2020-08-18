@@ -5,8 +5,7 @@
 }
 
 body {
-  background: #333333;
-
+  background: #303133;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 105%;
   color: white;
@@ -68,7 +67,7 @@ ul {
   justify-content: flex-end;
   width: 100%;
   height: 10vh;
-  background-color: #003366;
+  background-color: #103282;
 }
 
 #main-container,
@@ -82,32 +81,27 @@ ul {
 #user-info {
   background-color: rgb(71, 9, 26);
   width: 100%;
-  height: 40vh;
-  border-radius: 0px 0px 14px 14px;
+  height: 80vh;
+  border-radius: 0px 0px 0px 14px;
   padding: 10px;
 }
 
 #scoreboard {
   background-color: rgb(110, 109, 109);
   width: 30%;
-  height: 40vh;
-  border-radius: 0px 0px 14px 14px;
+  height: 80vh;
+  border-radius: 0px 0px 14px 0px;
   overflow-y: auto;
 }
 
 #scoreboard-title {
+  border-bottom: 1px solid black;
   text-align: center;
+  padding: 10px;
 }
-
-/*
-#scoreboard-body {
-  overflow-y: auto;
-} 
-*/
 
 #player {
   padding: 3px;
-  border-top: 1px solid black;
   border-bottom: 1px solid black;
   padding: 10px;
 }
