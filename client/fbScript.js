@@ -1,3 +1,7 @@
+// >>> this script attaches the facebook SDK to the head of the html page <<<<
+// allowing us to access the methods from facebook to make calls.
+
+
 const addScript = (id,src) => new Promise ((resolve,reject) => {
   const element = document. getElementById(id); 
   if(element) {

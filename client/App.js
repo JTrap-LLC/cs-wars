@@ -4,6 +4,8 @@ import NavContainer from './containers/NavContainer';
 import MainContainer from './containers/MainContainer';
 import CollectCWUsername from './components/CollectCWUsername';
 
+// Should probly do some research on your react hooks fellas ¯\(;_')/¯
+
 const App = () => {
   const [facebookid, setFacebookid] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -14,7 +16,7 @@ const App = () => {
   const [isLoggedin, setLogin] = useState(false);
   const [isCollecting, setCollecting] = useState(false);
   const [cwuser, setcwUsername] = useState(''); // Codewars Username
-  const [closure, setClosure] = useState(false);
+  const [closure, setClosure] = useState(false); // Just makes sure that the post request only runs once
 
   // Fetch request to get valid user
   useEffect(() => {
@@ -64,6 +66,7 @@ const App = () => {
     }
   });
 
+  // Fetch request to get challenges for user
   useEffect(() => {
     if (userInfo.length) {
       fetch(`/challenges/${userInfo[0].cwusername}`) // need to get from login
