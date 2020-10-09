@@ -1,19 +1,34 @@
-# cs-wars
+## About
+CSWars is a personalized study tracker to monitor your progress!
+
+## Getting Started
+### Prerequisites
+
+Ensure that you have the latest version of npm installed:
+```sh
+npm install npm@latest -g
+```
+
+### Installation
+
+1. Obtain a free API Key from your CW account
+2. Clone the repo
+```sh
+git clone https://github.com/JTrap-LLC/cs-wars.git
+```
+3. Install NPM packages
+```sh
+npm install
+```
+4. Enter your API, Oauth, and Database configurations/URIs
 
 
-** Front-end Comments ( React Hook Problem )
-Just a heads up, we tried to implement React Hooks on the front end and had a few issues. 
-Our setEffects methods were forced to work in the way that we expected them too by having conditional statements or using closure to make it only run once.
-It currently works but if you know of a better way to do this please reach out to Alonso and let me know how you did it!
+## Contributing
 
-** Facebook Oauth Comments
-- random files for rootCA and server crts etc were to get HTTPS working for our server 
-- when using postman, you must disable SSL
-- when in browser. make sure your url says https://localhost...
-  - also if browser complains about being unsafe... just click the link for advanced settings and move foward to the site.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-** Database 
-- schema located in assets. yes, its only one table.
-
-Good Luck from Team Star-nosed Mole
-- Alonso, Justin, Patty, Rob, Sully (Tjolanda)
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature`)
+3. Commit your Changes (`git commit -m 'Add feature'`)
+4. Push to the Branch (`git push origin feature`)
+5. Open a Pull Request
